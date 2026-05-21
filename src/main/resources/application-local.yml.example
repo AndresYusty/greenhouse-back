@@ -1,0 +1,11 @@
+# Copie este archivo a application-local.yml (no se sube a Git) y ajuste los valores.
+
+spring:
+  datasource:
+    username: root
+    password: SU_CLAVE_MYSQL
+
+# Google OAuth: lo más simple en IntelliJ (mismo archivo que MySQL).
+# Las usa application-oauth.yml mediante ${GOOGLE_CLIENT_ID} y ${GOOGLE_CLIENT_SECRET}.
+GOOGLE_CLIENT_ID: "SU_ID.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET: "GOCSPX-su-secreto"

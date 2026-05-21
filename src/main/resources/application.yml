@@ -1,0 +1,64 @@
+# Copyright (c) 2026 — Proyecto académico Invernadero.
+# Configuración principal de Spring Boot.
+
+spring:
+  application:
+    name: invernadero-api
+  profiles:
+    # Si no defines SPRING_PROFILES_ACTIVE: MySQL local (application-local.yml) + Google OAuth.
+    # Solo demo sin pantalla de login: SPRING_PROFILES_ACTIVE=local
+    # CI: SPRING_PROFILES_ACTIVE=default
+    default:
+      - local
+      - oauth
+  datasource:
+    # Solo MySQL (persistencia en el servidor). Requiere MySQL en marcha.
+    # Puedes sobrescribir la URL con la variable de entorno SPRING_DATASOURCE_URL.
+    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE:invernadero_db}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+  messages:
+    basename: messages/messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
+
+server:
+  port: 8081
+  servlet:
+    session:
+      cookie:
+        same-site: lax
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+app:
+  sample-data:
+    enabled: true
+  cors:
+    allowed-origins: ${APP_CORS_ORIGINS:http://localhost:5173}
+  security:
+    oauth2-enabled: ${APP_OAUTH2_ENABLED:false}
+  oauth2:
+    post-login-redirect: ${APP_OAUTH2_POST_LOGIN:http://localhost:5173/}
+  taiga:
+    base-url: ${TAIGA_BASE_URL:https://api.taiga.io/api/v1}
+    personal-access-token: ${TAIGA_TOKEN:}

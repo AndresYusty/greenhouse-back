@@ -1,0 +1,4 @@
+# Desactiva datos semilla en tests.
+app:
+  sample-data:
+    enabled: false

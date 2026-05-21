@@ -1,0 +1,53 @@
+# Maven / compilación
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Bytecode / empaquetados sueltos
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# JVM crashes
+hs_err_pid*
+replay_pid*
+
+# Credenciales locales (MySQL, Google OAuth en YAML)
+src/main/resources/application-local.yml
+.env
+.env.*
+
+# Logs
+*.log
+logs/
+
+# IDEs Eclipse / STS
+.project
+.classpath
+.factorypath
+.settings/
+.springBeans
+.sts4-cache/
+
+# IntelliJ / otros
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Otros editores
+*.swp
+*~
+
+# SO
+.DS_Store
+Thumbs.db
