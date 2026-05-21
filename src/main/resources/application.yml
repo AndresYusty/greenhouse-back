@@ -12,11 +12,13 @@ spring:
       - local
       - oauth
   datasource:
-    # Solo MySQL (persistencia en el servidor). Requiere MySQL en marcha.
-    # Puedes sobrescribir la URL con la variable de entorno SPRING_DATASOURCE_URL.
-    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE:invernadero_db}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
-    username: ${MYSQL_USER:root}
-    password: ${MYSQL_PASSWORD:}
+    # Solo MySQL. Local: sin MYSQLHOST usa localhost + MYSQL_USER / MYSQL_PASSWORD / MYSQL_DATABASE.
+    # Railway (plugin MySQL): define MYSQLHOST, MYSQLPORT, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE
+    # (Railway también expone MYSQL_* con guiones bajos; ambos están soportados en la URL y credenciales).
+    # Opcional: una sola URL con variable de Referencia ⇢ SPRING_DATASOURCE_URL.
+    url: jdbc:mysql://${MYSQLHOST:localhost}:${MYSQLPORT:3306}/${MYSQLDATABASE:${MYSQL_DATABASE:invernadero_db}}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${SPRING_DATASOURCE_USERNAME:${MYSQLUSER:${MYSQL_USER:root}}}
+    password: ${SPRING_DATASOURCE_PASSWORD:${MYSQLPASSWORD:${MYSQL_PASSWORD:}}}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -32,7 +34,8 @@ spring:
     fallback-to-system-locale: false
 
 server:
-  port: 8081
+  # En PaaS (p. ej. Railway) debe coincidir con la variable PORT del contenedor (por defecto 8081 local).
+  port: ${PORT:8081}
   servlet:
     session:
       cookie:
@@ -58,7 +61,7 @@ app:
   security:
     oauth2-enabled: ${APP_OAUTH2_ENABLED:false}
   oauth2:
-    post-login-redirect: ${APP_OAUTH2_POST_LOGIN:http://localhost:5173/}
+    post-login-redirect: ${APP_OAUTH2_POST_LOGIN:http://localhost:5173/panel}
   taiga:
     base-url: ${TAIGA_BASE_URL:https://api.taiga.io/api/v1}
     personal-access-token: ${TAIGA_TOKEN:}

@@ -68,7 +68,7 @@ public class AppProperties {
          * URL completa del SPA tras Google (por defecto Vite). En Google Cloud Console la URI de callback sigue siendo
          * {@code http://localhost:8081/login/oauth2/code/google}.
          */
-        private String postLoginRedirect = "http://localhost:5173/";
+        private String postLoginRedirect = "http://localhost:5173/panel";
 
         public String getPostLoginRedirect() {
             return postLoginRedirect;
