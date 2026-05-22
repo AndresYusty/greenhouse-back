@@ -36,10 +36,14 @@ spring:
 server:
   # En PaaS (p. ej. Railway) debe coincidir con la variable PORT del contenedor (por defecto 8081 local).
   port: ${PORT:8081}
+  # OAuth e URLs absolutas tras proxy (X-Forwarded-Proto / Host) — obligatorio detrás de Railway.
+  forward-headers-strategy: framework
   servlet:
     session:
       cookie:
-        same-site: lax
+        # cross-site (SPA en Vercel + API en Railway): none + Secure. Local: lax + secure por defecto false.
+        same-site: ${APP_SESSION_COOKIE_SAMESITE:lax}
+        secure: ${APP_SESSION_COOKIE_SECURE:false}
 
 management:
   endpoints:
