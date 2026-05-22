@@ -14,7 +14,7 @@ spring:
               - openid
               - profile
               - email
-
+redirect-uri: "${APP_OAUTH2_REDIRECT_URI:http://localhost:8081/login/oauth2/code/google}"
 app:
   security:
     oauth2-enabled: true

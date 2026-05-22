@@ -52,9 +52,24 @@ public class OAuth2GoogleDiagnostics {
         } else {
             log.info("Google OAuth: client_secret presente (longitud={}).", secret.length());
         }
+        String resolvedPort = environment.getProperty("server.port");
+        if (resolvedPort == null || resolvedPort.isBlank()) {
+            resolvedPort = environment.getProperty("PORT");
+        }
+        if (resolvedPort == null || resolvedPort.isBlank()) {
+            resolvedPort = "8081";
+        }
         log.info(
-                "Si Google muestra ''OAuth client was not found'': el ID no coincide con ningun cliente Web "
-                        + "del proyecto, o el cliente fue borrado. URI autorizada: "
-                        + "http://localhost:8081/login/oauth2/code/google");
+                "Google OAuth: ejemplo de redirect URI solo valido cuando accedes al backend desde tu ordenador:"
+                        + " http://localhost:{}/login/oauth2/code/google",
+                resolvedPort);
+        log.info(
+                "Si el backend esta en Railway: en Google Cloud Console registra HTTPS con el dominio publico "
+                        + "que muestra Railway (no localhost ni el puerto interno {}). "
+                        + "Ej.: https://<tu-dominio-railway>/login/oauth2/code/google — debe coincidir con la solicitud HTTPS real.",
+                resolvedPort);
+        log.info(
+                "Si Google muestra ''OAuth client was not found'': el client_id no coincide con un cliente tipo "
+                        + "Web del proyecto Google Cloud.");
     }
 }
