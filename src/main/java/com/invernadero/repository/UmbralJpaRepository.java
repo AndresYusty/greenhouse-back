@@ -12,9 +12,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UmbralJpaRepository extends JpaRepository<UmbralEntity, UUID> {
 
-    List<UmbralEntity> findByZonaIdOrderByTipo(UUID zonaId);
+    List<UmbralEntity> findByZona_IdOrderByTipo(UUID zonaId);
 
-    Optional<UmbralEntity> findByZonaIdAndTipo(UUID zonaId, MetricaTipo tipo);
+    Optional<UmbralEntity> findByZona_IdAndTipo(UUID zonaId, MetricaTipo tipo);
 
-    void deleteByZonaId(UUID zonaId);
+    void deleteByZona_Id(UUID zonaId);
 }

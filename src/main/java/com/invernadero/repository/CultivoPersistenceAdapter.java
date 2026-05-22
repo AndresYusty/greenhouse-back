@@ -25,13 +25,13 @@ public class CultivoPersistenceAdapter implements CultivoPersistencePort {
 
     @Override
     public List<Cultivo> listarPorZona(UUID zonaId) {
-        return repository.findByZonaIdOrderByPlantadoEnDesc(zonaId).stream()
+        return repository.findByZona_IdOrderByPlantadoEnDesc(zonaId).stream()
                 .map(CultivoMapper::toDomain)
                 .toList();
     }
 
     @Override
     public void eliminarTodosPorZona(UUID zonaId) {
-        repository.deleteByZonaId(zonaId);
+        repository.deleteByZona_Id(zonaId);
     }
 }

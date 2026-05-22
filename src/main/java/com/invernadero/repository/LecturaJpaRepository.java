@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /** Repositorio JPA para {@link LecturaEntity}. */
 public interface LecturaJpaRepository extends JpaRepository<LecturaEntity, UUID> {
 
-    List<LecturaEntity> findByZonaIdOrderByRegistradoEnDesc(UUID zonaId, Pageable pageable);
+    List<LecturaEntity> findByZona_IdOrderByRegistradoEnDesc(UUID zonaId, Pageable pageable);
 
-    void deleteByZonaId(UUID zonaId);
+    void deleteByZona_Id(UUID zonaId);
 }

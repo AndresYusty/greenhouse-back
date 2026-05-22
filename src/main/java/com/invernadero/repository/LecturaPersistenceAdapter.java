@@ -29,13 +29,13 @@ public class LecturaPersistenceAdapter implements LecturaPersistencePort {
     @Override
     public List<LecturaAmbiental> listarPorZona(UUID zonaId, int limite) {
         int size = Math.min(Math.max(limite, 1), 500);
-        return repository.findByZonaIdOrderByRegistradoEnDesc(zonaId, PageRequest.of(0, size)).stream()
+        return repository.findByZona_IdOrderByRegistradoEnDesc(zonaId, PageRequest.of(0, size)).stream()
                 .map(LecturaMapper::toDomain)
                 .toList();
     }
 
     @Override
     public void eliminarTodasPorZona(UUID zonaId) {
-        repository.deleteByZonaId(zonaId);
+        repository.deleteByZona_Id(zonaId);
     }
 }

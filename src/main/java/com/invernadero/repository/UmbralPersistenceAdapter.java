@@ -27,18 +27,18 @@ public class UmbralPersistenceAdapter implements UmbralPersistencePort {
 
     @Override
     public List<UmbralAmbiental> listarPorZona(UUID zonaId) {
-        return repository.findByZonaIdOrderByTipo(zonaId).stream()
+        return repository.findByZona_IdOrderByTipo(zonaId).stream()
                 .map(UmbralMapper::toDomain)
                 .toList();
     }
 
     @Override
     public Optional<UmbralAmbiental> buscarPorZonaYTipo(UUID zonaId, MetricaTipo tipo) {
-        return repository.findByZonaIdAndTipo(zonaId, tipo).map(UmbralMapper::toDomain);
+        return repository.findByZona_IdAndTipo(zonaId, tipo).map(UmbralMapper::toDomain);
     }
 
     @Override
     public void eliminarTodosPorZona(UUID zonaId) {
-        repository.deleteByZonaId(zonaId);
+        repository.deleteByZona_Id(zonaId);
     }
 }

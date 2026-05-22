@@ -6,7 +6,11 @@ package com.invernadero.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
@@ -19,8 +23,12 @@ public class CultivoEntity {
     @Column(nullable = false)
     private UUID id;
 
-    @Column(name = "zona_id", nullable = false)
-    private UUID zonaId;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "zona_id",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_cultivos_zona"))
+    private ZonaEntity zona;
 
     @Column(nullable = false, length = 200)
     private String nombre;
@@ -45,12 +53,20 @@ public class CultivoEntity {
         this.id = id;
     }
 
+    public ZonaEntity getZona() {
+        return zona;
+    }
+
+    public void setZona(ZonaEntity zona) {
+        this.zona = zona;
+    }
+
     public UUID getZonaId() {
-        return zonaId;
+        return zona == null ? null : zona.getId();
     }
 
     public void setZonaId(UUID zonaId) {
-        this.zonaId = zonaId;
+        this.zona = zonaId == null ? null : ZonaEntity.referenciaPorId(zonaId);
     }
 
     public String getNombre() {

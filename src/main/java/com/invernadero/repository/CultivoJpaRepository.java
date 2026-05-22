@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CultivoJpaRepository extends JpaRepository<CultivoEntity, UUID> {
 
-    List<CultivoEntity> findByZonaIdOrderByPlantadoEnDesc(UUID zonaId);
+    List<CultivoEntity> findByZona_IdOrderByPlantadoEnDesc(UUID zonaId);
 
-    void deleteByZonaId(UUID zonaId);
+    void deleteByZona_Id(UUID zonaId);
 }

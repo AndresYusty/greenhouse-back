@@ -9,7 +9,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.math.BigDecimal;
@@ -26,8 +30,12 @@ public class UmbralEntity {
     @Column(nullable = false)
     private UUID id;
 
-    @Column(name = "zona_id", nullable = false)
-    private UUID zonaId;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "zona_id",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_umbrales_ambientales_zona"))
+    private ZonaEntity zona;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 40)
@@ -50,12 +58,20 @@ public class UmbralEntity {
         this.id = id;
     }
 
+    public ZonaEntity getZona() {
+        return zona;
+    }
+
+    public void setZona(ZonaEntity zona) {
+        this.zona = zona;
+    }
+
     public UUID getZonaId() {
-        return zonaId;
+        return zona == null ? null : zona.getId();
     }
 
     public void setZonaId(UUID zonaId) {
-        this.zonaId = zonaId;
+        this.zona = zonaId == null ? null : ZonaEntity.referenciaPorId(zonaId);
     }
 
     public MetricaTipo getTipo() {

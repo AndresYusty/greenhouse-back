@@ -62,7 +62,7 @@ public class SampleDataLoader implements ApplicationRunner {
 
         LecturaEntity lectura = new LecturaEntity();
         lectura.setId(LECTURA_DEMO_ID);
-        lectura.setZonaId(ZONA_DEMO_ID);
+        lectura.setZona(zona);
         lectura.setTipo(MetricaTipo.TEMPERATURA_C);
         lectura.setValor(BigDecimal.valueOf(22.5));
         lectura.setRegistradoEn(Instant.now());
@@ -70,7 +70,7 @@ public class SampleDataLoader implements ApplicationRunner {
 
         CultivoEntity cultivo = new CultivoEntity();
         cultivo.setId(CULTIVO_DEMO_ID);
-        cultivo.setZonaId(ZONA_DEMO_ID);
+        cultivo.setZona(zona);
         cultivo.setNombre("Lechuga");
         cultivo.setVariedad("Romana");
         cultivo.setNotas("Ejemplo demo");
@@ -81,7 +81,7 @@ public class SampleDataLoader implements ApplicationRunner {
 
         UmbralEntity umbral = new UmbralEntity();
         umbral.setId(UMBRAL_DEMO_ID);
-        umbral.setZonaId(ZONA_DEMO_ID);
+        umbral.setZona(zona);
         umbral.setTipo(MetricaTipo.TEMPERATURA_C);
         umbral.setValorMin(BigDecimal.valueOf(18));
         umbral.setValorMax(BigDecimal.valueOf(26));

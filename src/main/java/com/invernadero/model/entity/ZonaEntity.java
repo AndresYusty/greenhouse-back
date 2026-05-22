@@ -59,4 +59,15 @@ public class ZonaEntity {
     public void setCreadoEn(Instant creadoEn) {
         this.creadoEn = creadoEn;
     }
+
+    /**
+     * Solo id — referencia Hibernate para {@code @ManyToOne} sin cargar la fila completa.
+     *
+     * @param id UUID de zona existente (no debe ser {@code null} en FK obligatorios)
+     */
+    public static ZonaEntity referenciaPorId(UUID id) {
+        ZonaEntity ref = new ZonaEntity();
+        ref.setId(id);
+        return ref;
+    }
 }
