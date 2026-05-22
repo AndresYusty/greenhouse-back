@@ -13,7 +13,9 @@ import static org.mockito.Mockito.when;
 
 import com.invernadero.model.Zona;
 import com.invernadero.model.exception.RecursoNoEncontradoException;
+import com.invernadero.repository.CultivoPersistencePort;
 import com.invernadero.repository.LecturaPersistencePort;
+import com.invernadero.repository.UmbralPersistencePort;
 import com.invernadero.repository.ZonaPersistencePort;
 import java.time.Instant;
 import java.util.List;
@@ -33,6 +35,12 @@ class ZonaApplicationServiceTest {
 
     @Mock
     private LecturaPersistencePort lecturaPersistencePort;
+
+    @Mock
+    private CultivoPersistencePort cultivoPersistencePort;
+
+    @Mock
+    private UmbralPersistencePort umbralPersistencePort;
 
     @InjectMocks
     private ZonaApplicationService service;
@@ -72,6 +80,8 @@ class ZonaApplicationServiceTest {
         service.eliminar(id);
 
         verify(lecturaPersistencePort).eliminarTodasPorZona(id);
+        verify(cultivoPersistencePort).eliminarTodosPorZona(id);
+        verify(umbralPersistencePort).eliminarTodosPorZona(id);
         verify(zonaPersistencePort).eliminar(id);
     }
 
@@ -83,5 +93,7 @@ class ZonaApplicationServiceTest {
         assertThatThrownBy(() -> service.eliminar(id)).isInstanceOf(RecursoNoEncontradoException.class);
 
         verifyNoInteractions(lecturaPersistencePort);
+        verifyNoInteractions(cultivoPersistencePort);
+        verifyNoInteractions(umbralPersistencePort);
     }
 }

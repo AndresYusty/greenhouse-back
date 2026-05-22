@@ -6,7 +6,9 @@ package com.invernadero.service;
 
 import com.invernadero.model.Zona;
 import com.invernadero.model.exception.RecursoNoEncontradoException;
+import com.invernadero.repository.CultivoPersistencePort;
 import com.invernadero.repository.LecturaPersistencePort;
+import com.invernadero.repository.UmbralPersistencePort;
 import com.invernadero.repository.ZonaPersistencePort;
 import java.time.Instant;
 import java.util.List;
@@ -21,11 +23,18 @@ public class ZonaApplicationService {
 
     private final ZonaPersistencePort zonaPersistencePort;
     private final LecturaPersistencePort lecturaPersistencePort;
+    private final CultivoPersistencePort cultivoPersistencePort;
+    private final UmbralPersistencePort umbralPersistencePort;
 
     public ZonaApplicationService(
-            ZonaPersistencePort zonaPersistencePort, LecturaPersistencePort lecturaPersistencePort) {
+            ZonaPersistencePort zonaPersistencePort,
+            LecturaPersistencePort lecturaPersistencePort,
+            CultivoPersistencePort cultivoPersistencePort,
+            UmbralPersistencePort umbralPersistencePort) {
         this.zonaPersistencePort = zonaPersistencePort;
         this.lecturaPersistencePort = lecturaPersistencePort;
+        this.cultivoPersistencePort = cultivoPersistencePort;
+        this.umbralPersistencePort = umbralPersistencePort;
     }
 
     public Zona crear(String nombre, String descripcion) {
@@ -46,6 +55,8 @@ public class ZonaApplicationService {
     public void eliminar(UUID id) {
         obtener(id);
         lecturaPersistencePort.eliminarTodasPorZona(id);
+        cultivoPersistencePort.eliminarTodosPorZona(id);
+        umbralPersistencePort.eliminarTodosPorZona(id);
         zonaPersistencePort.eliminar(id);
     }
 }

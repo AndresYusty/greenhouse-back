@@ -43,6 +43,12 @@ public class RestExceptionHandler {
         return ResponseEntity.badRequest().body(new ErrorBody(msg, detail));
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorBody> illegalArgument(IllegalArgumentException ex, Locale locale) {
+        String msg = messageSource.getMessage("error.validation", null, locale);
+        return ResponseEntity.badRequest().body(new ErrorBody(msg, ex.getMessage()));
+    }
+
     /** Cuerpo JSON simple para errores. */
     public record ErrorBody(String message, String detail) {}
 }
