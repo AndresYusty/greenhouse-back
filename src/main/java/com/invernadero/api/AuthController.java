@@ -47,6 +47,7 @@ public class AuthController {
         String loginUrl = authenticated ? null : OAUTH2_GOOGLE_START_PATH;
         return ResponseEntity.ok(new AuthStatusResponse(authenticated, true, loginUrl, email, name));
     }
+    
 
     private static boolean isLoggedIn(Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
