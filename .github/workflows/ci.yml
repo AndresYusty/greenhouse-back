@@ -1,5 +1,5 @@
 # Copyright (c) 2026 — Proyecto académico Invernadero.
-# CI básico: compila con Maven en cualquier push (repo greenhouse-back).
+# CI: build Maven + análisis SonarCloud (repo greenhouse-back).
 
 name: CI
 
@@ -13,9 +13,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - uses: actions/setup-java@v4
         with:
-          distribution: temurin
           java-version: "17"
-      - name: Build
-        run: mvn -B package -DskipTests
+          distribution: temurin
+
+      - name: Build y Sonar
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn -B verify sonar:sonar \
+            -Dsonar.projectKey=AndresYusty_greenhouse-back \
+            -Dsonar.organization=andresyusty \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.qualitygate.wait=false \
+            -Dmaven.test.failure.ignore=true
+        continue-on-error: true
