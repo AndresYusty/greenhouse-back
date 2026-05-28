@@ -30,5 +30,6 @@ jobs:
             -Dsonar.organization=andresyusty \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.qualitygate.wait=false \
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
             -Dmaven.test.failure.ignore=true
         continue-on-error: true
