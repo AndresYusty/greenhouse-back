@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * @param email Email del usuario OAuth (si hay sesión).
  * @param name Nombre mostrado del usuario OAuth (si hay sesión).
  */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record AuthStatusResponse(
         boolean authenticated,
